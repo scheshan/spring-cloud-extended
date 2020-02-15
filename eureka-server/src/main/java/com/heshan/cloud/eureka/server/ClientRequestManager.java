@@ -37,7 +37,7 @@ public class ClientRequestManager {
 
     private PeerAwareInstanceRegistry registry;
 
-    private ExtendConfigBean config;
+    private ExtendedConfigBean config;
 
     private int changeListSize;
 
@@ -47,7 +47,7 @@ public class ClientRequestManager {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ClientRequestManager.class);
 
-    public ClientRequestManager(PeerAwareInstanceRegistry registry, ExtendConfigBean config) {
+    public ClientRequestManager(PeerAwareInstanceRegistry registry, ExtendedConfigBean config) {
         this.registry = registry;
         this.config = config;
 

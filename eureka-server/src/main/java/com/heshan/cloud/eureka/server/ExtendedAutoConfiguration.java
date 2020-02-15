@@ -32,13 +32,13 @@ public class ExtendedAutoConfiguration {
     }
 
     @Bean
-    public ClientRequestManager clientRequestManager(PeerAwareInstanceRegistry registry, ExtendConfigBean config) {
+    public ClientRequestManager clientRequestManager(PeerAwareInstanceRegistry registry, ExtendedConfigBean config) {
         return new ClientRequestManager(registry, config);
     }
 
     @Bean
-    @ConfigurationProperties(prefix = "extend.eureka-server")
-    public ExtendConfigBean extendConfigBean() {
-        return new ExtendConfigBean();
+    @ConfigurationProperties(prefix = "extended.eureka-server")
+    public ExtendedConfigBean extendedConfigBean() {
+        return new ExtendedConfigBean();
     }
 }

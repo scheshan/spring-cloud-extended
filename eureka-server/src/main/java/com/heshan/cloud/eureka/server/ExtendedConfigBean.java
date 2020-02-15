@@ -6,7 +6,7 @@ package com.heshan.cloud.eureka.server;
  * @author heshan
  * @date 2020/2/15
  */
-public class ExtendConfigBean {
+public class ExtendedConfigBean {
 
     private int changeQueueSize = 20;
 
