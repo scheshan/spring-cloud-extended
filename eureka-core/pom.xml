@@ -11,5 +11,11 @@
 
     <artifactId>eureka-core</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>com.netflix.eureka</groupId>
+            <artifactId>eureka-core</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>

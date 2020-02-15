@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.heshan.cloud.eureka.server.ExtendedAutoConfiguration

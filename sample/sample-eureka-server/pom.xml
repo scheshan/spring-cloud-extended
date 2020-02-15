@@ -16,5 +16,10 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.heshan.springcloud</groupId>
+            <artifactId>eureka-server</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>
