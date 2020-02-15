@@ -49,4 +49,9 @@ public class ClientRequest {
     public long timeout() {
         return this.timeout;
     }
+
+    @Override
+    public String toString() {
+        return "remoteAddress:" + remoteAddress + ", runId:" + runId + ", epoch" + epoch + ", timeout:" + epoch;
+    }
 }

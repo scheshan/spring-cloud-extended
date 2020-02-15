@@ -5,6 +5,7 @@ import com.netflix.discovery.EurekaClientConfig;
 import com.netflix.eureka.EurekaServerConfig;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
 import com.netflix.eureka.resources.ServerCodecs;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.netflix.eureka.server.InstanceRegistryProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,7 +32,13 @@ public class ExtendedAutoConfiguration {
     }
 
     @Bean
-    public ClientRequestManager clientRequestManager(PeerAwareInstanceRegistry registry) {
-        return new ClientRequestManager(registry);
+    public ClientRequestManager clientRequestManager(PeerAwareInstanceRegistry registry, ExtendConfigBean config) {
+        return new ClientRequestManager(registry, config);
+    }
+
+    @Bean
+    @ConfigurationProperties(prefix = "extend.eureka-server")
+    public ExtendConfigBean extendConfigBean() {
+        return new ExtendConfigBean();
     }
 }

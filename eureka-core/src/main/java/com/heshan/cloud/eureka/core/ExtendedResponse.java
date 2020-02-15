@@ -1,5 +1,6 @@
 package com.heshan.cloud.eureka.core;
 
+import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.shared.Application;
 
 import java.util.List;
@@ -16,7 +17,11 @@ public class ExtendedResponse {
 
     private String runId;
 
-    private List<Application> applications;
+    private List<Application> full;
+
+    private List<InstanceInfo> added;
+
+    private List<InstanceInfo> deleted;
 
     public long getEpoch() {
         return epoch;
@@ -34,11 +39,27 @@ public class ExtendedResponse {
         this.runId = runId;
     }
 
-    public List<Application> getApplications() {
-        return applications;
+    public List<Application> getFull() {
+        return full;
     }
 
-    public void setApplications(List<Application> applications) {
-        this.applications = applications;
+    public void setFull(List<Application> full) {
+        this.full = full;
+    }
+
+    public List<InstanceInfo> getAdded() {
+        return added;
+    }
+
+    public void setAdded(List<InstanceInfo> added) {
+        this.added = added;
+    }
+
+    public List<InstanceInfo> getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(List<InstanceInfo> deleted) {
+        this.deleted = deleted;
     }
 }

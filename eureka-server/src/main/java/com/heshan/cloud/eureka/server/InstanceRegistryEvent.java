@@ -33,32 +33,12 @@ public class InstanceRegistryEvent extends ApplicationEvent {
         this.instanceId = instance.getAppName();
     }
 
-    public InstanceRegistryEvent(Object source, Type type, String appName, String instanceId) {
-        super(source);
-
-        Objects.requireNonNull(type);
-        Objects.requireNonNull(appName);
-        Objects.requireNonNull(instanceId);
-
-        this.type = type;
-        this.appName = appName;
-        this.instanceId = instanceId;
-    }
-
     public Type type() {
         return type;
     }
 
     public InstanceInfo instance() {
         return instance;
-    }
-
-    public String appName() {
-        return appName;
-    }
-
-    public String instanceId() {
-        return instanceId;
     }
 
     public enum Type {
