@@ -11,5 +11,16 @@
 
     <artifactId>eureka-client</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.netflix.ribbon</groupId>
+            <artifactId>ribbon-loadbalancer</artifactId>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
 </project>
