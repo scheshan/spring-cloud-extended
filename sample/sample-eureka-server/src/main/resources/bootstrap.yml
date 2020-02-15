@@ -1,0 +1,10 @@
+server:
+  port: 8761
+spring:
+  application:
+    name: SAMPLE-EUREKA-SERVER
+eureka:
+  client:
+    register-with-eureka: false
+  server:
+    enable-self-preservation: false
