@@ -14,5 +14,6 @@
     <modules>
         <module>sample-eureka-server</module>
         <module>sample-producer</module>
+        <module>sample-consumer</module>
     </modules>
 </project>
