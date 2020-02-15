@@ -20,13 +20,18 @@ import org.springframework.context.annotation.Primary;
 public class ExtendedAutoConfiguration {
 
     @Bean
-    public ExtendedEndpoint extendedEndpoint(PeerAwareInstanceRegistry registry) {
-        return new ExtendedEndpoint(registry);
+    public ExtendedEndpoint extendedEndpoint(ClientRequestManager clientRequestManager) {
+        return new ExtendedEndpoint(clientRequestManager);
     }
 
     @Bean
     @Primary
     public PeerAwareInstanceRegistry registry(InstanceRegistryProperties instanceRegistryProperties, EurekaServerConfig serverConfig, EurekaClientConfig clientConfig, ServerCodecs serverCodecs, EurekaClient eurekaClient) {
         return new ExtendedInstanceRegistry(serverConfig, clientConfig, serverCodecs, eurekaClient, instanceRegistryProperties.getExpectedNumberOfRenewsPerMin(), instanceRegistryProperties.getDefaultOpenForTrafficCount());
+    }
+
+    @Bean
+    public ClientRequestManager clientRequestManager(PeerAwareInstanceRegistry registry) {
+        return new ClientRequestManager(registry);
     }
 }
