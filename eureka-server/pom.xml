@@ -21,6 +21,7 @@
             <groupId>com.heshan.springcloud</groupId>
             <artifactId>eureka-core</artifactId>
             <version>${project.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
