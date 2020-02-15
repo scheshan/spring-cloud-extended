@@ -53,12 +53,10 @@ public class ExtendedInstanceRegistry extends InstanceRegistry {
 
     @Override
     protected boolean internalCancel(String appName, String id, boolean isReplication) {
-        InstanceInfo info = getInstanceByAppAndId(appName, id);
-
         boolean success = super.internalCancel(appName, id, isReplication);
 
         if (success) {
-            InstanceRegistryEvent e = new InstanceRegistryEvent(this, InstanceRegistryEvent.Type.UNREGISTER, info);
+            InstanceRegistryEvent e = new InstanceRegistryEvent(this, InstanceRegistryEvent.Type.UNREGISTER, appName, id);
             context.publishEvent(e);
         }
 

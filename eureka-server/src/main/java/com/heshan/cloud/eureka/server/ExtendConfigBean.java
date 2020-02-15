@@ -8,7 +8,7 @@ package com.heshan.cloud.eureka.server;
  */
 public class ExtendConfigBean {
 
-    private int changeQueueSize = 1000;
+    private int changeQueueSize = 20;
 
     public int getChangeQueueSize() {
         return changeQueueSize;

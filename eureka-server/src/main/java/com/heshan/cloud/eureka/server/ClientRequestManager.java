@@ -1,5 +1,6 @@
 package com.heshan.cloud.eureka.server;
 
+import com.heshan.cloud.eureka.core.DeletedInstanceInfo;
 import com.heshan.cloud.eureka.core.ExtendedResponse;
 import com.netflix.eureka.registry.PeerAwareInstanceRegistry;
 import org.slf4j.Logger;
@@ -38,7 +39,7 @@ public class ClientRequestManager {
 
     private ExtendConfigBean config;
 
-    private int changeListSize = 1000;
+    private int changeListSize;
 
     private Queue<InstanceRegistryEventWrapper> changeList;
 
@@ -50,7 +51,7 @@ public class ClientRequestManager {
         this.registry = registry;
         this.config = config;
 
-        this.changeListSize = Math.max(changeListSize, config.getChangeQueueSize());
+        this.changeListSize = config.getChangeQueueSize();
 
         changeList = new LinkedList<>();
 
@@ -129,7 +130,7 @@ public class ClientRequestManager {
 
             changeList.add(new InstanceRegistryEventWrapper(e, epoch));
             if (changeList.size() > changeListSize) {
-                changeList.remove();
+                changeList.poll();
             }
 
             allClientMap = clientMap;
@@ -197,7 +198,10 @@ public class ClientRequestManager {
                     response.getAdded().add(e.instance());
                     break;
                 case UNREGISTER:
-                    response.getDeleted().add(e.instance());
+                    DeletedInstanceInfo instanceInfo = new DeletedInstanceInfo();
+                    instanceInfo.setAppName(e.appName());
+                    instanceInfo.setInstanceId(e.instanceId());
+                    response.getDeleted().add(instanceInfo);
                     break;
             }
         }

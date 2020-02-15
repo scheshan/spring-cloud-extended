@@ -21,7 +21,7 @@ public class ExtendedResponse {
 
     private List<InstanceInfo> added;
 
-    private List<InstanceInfo> deleted;
+    private List<DeletedInstanceInfo> deleted;
 
     public long getEpoch() {
         return epoch;
@@ -55,11 +55,11 @@ public class ExtendedResponse {
         this.added = added;
     }
 
-    public List<InstanceInfo> getDeleted() {
+    public List<DeletedInstanceInfo> getDeleted() {
         return deleted;
     }
 
-    public void setDeleted(List<InstanceInfo> deleted) {
+    public void setDeleted(List<DeletedInstanceInfo> deleted) {
         this.deleted = deleted;
     }
 }
