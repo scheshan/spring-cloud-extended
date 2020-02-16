@@ -1,9 +1,10 @@
 package com.heshan.cloud.eureka.client;
 
-import com.netflix.appinfo.InstanceInfo;
-import com.netflix.discovery.EurekaClientConfig;
+import com.netflix.discovery.shared.resolver.ClosableResolver;
+import com.netflix.discovery.shared.resolver.aws.AwsEndpoint;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * EurekaServerSelector
@@ -13,9 +14,20 @@ import java.util.List;
  */
 public class EurekaServerSelector {
 
-    private List<String> serverList;
+    private ClosableResolver resolver;
 
-    public EurekaServerSelector(EurekaClientConfig config, InstanceInfo instance) {
+    private AtomicInteger index = new AtomicInteger();
 
+    public EurekaServerSelector(ClosableResolver resolver) {
+        this.resolver = resolver;
+    }
+
+    public AwsEndpoint select() {
+        List<AwsEndpoint> list = resolver.getClusterEndpoints();
+        return list.get(index.get() % list.size());
+    }
+
+    public void next() {
+        index.incrementAndGet();
     }
 }

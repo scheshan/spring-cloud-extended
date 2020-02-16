@@ -4,6 +4,7 @@ import com.netflix.appinfo.ApplicationInfoManager;
 import com.netflix.discovery.AbstractDiscoveryClientOptionalArgs;
 import com.netflix.discovery.DiscoveryClient;
 import com.netflix.discovery.shared.Applications;
+import com.netflix.discovery.shared.resolver.ClosableResolver;
 import org.springframework.cloud.netflix.eureka.CloudEurekaClient;
 import org.springframework.context.ApplicationContext;
 import org.springframework.util.ReflectionUtils;
@@ -26,6 +27,8 @@ public class ExtendedDiscoveryClient extends CloudEurekaClient {
 
     private RestTemplate restTemplate;
 
+    private EurekaServerSelector selector;
+
     public ExtendedDiscoveryClient(
             ApplicationInfoManager manager,
             DelegateEurekaClientConfig config,
@@ -38,11 +41,23 @@ public class ExtendedDiscoveryClient extends CloudEurekaClient {
         restTemplate = new RestTemplate();
 
         try {
-            Field localRegionAppsField = ReflectionUtils.findField(DiscoveryClient.class, "localRegionApps");
-            ReflectionUtils.makeAccessible(localRegionAppsField);
-            localRegionApps = (AtomicReference<Applications>) ReflectionUtils.getField(localRegionAppsField, this);
+            init();
         } catch (Exception ex) {
-            throw new RuntimeException("Cannot access localRegionApps field", ex);
+            throw new RuntimeException("Failed init ExtendedDiscoveryClient", ex);
         }
+    }
+
+    public void init() throws Exception {
+        Field localRegionAppsField = ReflectionUtils.findField(DiscoveryClient.class, "localRegionApps");
+        ReflectionUtils.makeAccessible(localRegionAppsField);
+        localRegionApps = (AtomicReference<Applications>) ReflectionUtils.getField(localRegionAppsField, this);
+
+        Field eurekaTransportField = ReflectionUtils.findField(DiscoveryClient.class, "eurekaTransport");
+        Object eurekaTransport = ReflectionUtils.getField(eurekaTransportField, this);
+
+        Field bootstrapResolverField = ReflectionUtils.findField(eurekaTransport.getClass(), "bootstrapResolver");
+        ReflectionUtils.makeAccessible(bootstrapResolverField);
+        ClosableResolver resolver = (ClosableResolver) ReflectionUtils.getField(bootstrapResolverField, eurekaTransport);
+        selector = new EurekaServerSelector(resolver);
     }
 }
