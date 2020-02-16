@@ -238,4 +238,8 @@ public class DelegateEurekaClientConfig implements EurekaClientConfig {
     public EurekaTransportConfig getTransportConfig() {
         return delegate.getTransportConfig();
     }
+
+    public EurekaClientConfig delegate() {
+        return delegate;
+    }
 }
