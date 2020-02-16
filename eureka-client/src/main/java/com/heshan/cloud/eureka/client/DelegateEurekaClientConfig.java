@@ -7,7 +7,9 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 /**
- * ExtendedEurekaClientConfig
+ * {@link DelegateEurekaClientConfig} wraps the original {@link EurekaClientConfig} and
+ * mostly do the same thing, but let {@link #shouldFetchRegistry()} return false to disable fetch,
+ * and instead use our own logic.
  *
  * @author heshan
  * @date 2020/2/16
